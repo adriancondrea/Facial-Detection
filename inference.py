@@ -5,6 +5,7 @@ from network import SimpleNet
 from utils import transforms
 
 network = SimpleNet()
+# load the network. In our case, the network is network_epoch_11.
 network.load_state_dict(torch.load("models/network_epoch_11"))
 # network.load_state_dict(torch.load("models/network_epoch_7"))
 network.eval()
