@@ -98,7 +98,7 @@ def train(epochs):
     best_loss = 1
     epochs_without_improvement = 0
     losses = []
-    print("Training Started")
+    print("Training Started...")
     for epoch in range(epochs):
         start_time = time.time()
         model.train()

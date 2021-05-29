@@ -34,7 +34,7 @@ class ImageClassifierDataset(Dataset):
         print('loading not face images...')
         for subdirectory in os.listdir('images/not_faces'):
             if not subdirectory.startswith('.'):
-                print(f'loading from directory {subdirectory}')
+                print(f'\t\tloading not face images from subdirectory {subdirectory}')
                 self.load_from_directory(f'images/not_faces/{subdirectory}', 'not face')
 
     def process_images(self, image_list, image_classes):
@@ -66,21 +66,21 @@ class ImageClassifierDataset(Dataset):
             else:
                 validation_indexes.append(index)
 
-        trainSet = ImageClassifierDataset()
-        trainSet.images = [images_labels[i][0] for i in train_indexes]
-        trainSet.labels = [torch.tensor([images_labels[i][1]]) for i in train_indexes]
+        train_set = ImageClassifierDataset()
+        train_set.images = [images_labels[i][0] for i in train_indexes]
+        train_set.labels = [torch.tensor([images_labels[i][1]]) for i in train_indexes]
 
-        trainSet.images = torch.stack(trainSet.images)
-        trainSet.labels = torch.stack(trainSet.labels)
+        train_set.images = torch.stack(train_set.images)
+        train_set.labels = torch.stack(train_set.labels)
 
-        testSet = ImageClassifierDataset()
-        testSet.images = [images_labels[i][0] for i in validation_indexes]
-        testSet.labels = [torch.tensor([images_labels[i][1]]) for i in validation_indexes]
+        test_set = ImageClassifierDataset()
+        test_set.images = [images_labels[i][0] for i in validation_indexes]
+        test_set.labels = [torch.tensor([images_labels[i][1]]) for i in validation_indexes]
 
-        testSet.images = torch.stack(testSet.images)
-        testSet.labels = torch.stack(testSet.labels)
+        test_set.images = torch.stack(test_set.images)
+        test_set.labels = torch.stack(test_set.labels)
 
-        return trainSet, testSet
+        return train_set, test_set
 
     def __getitem__(self, index):
         return self.images[index], self.labels[index]
